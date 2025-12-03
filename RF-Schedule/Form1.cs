@@ -29,5 +29,10 @@ namespace RF_Schedule
         {
 
         }
+
+        private void ribbonControl_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
