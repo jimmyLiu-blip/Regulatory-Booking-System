@@ -50,24 +50,28 @@
             ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            panelControl1 = new DevExpress.XtraEditors.PanelControl();
             ((System.ComponentModel.ISupportInitialize)schedulerControl1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)schedulerDataStorage1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ribbonControl1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
+            panelControl1.SuspendLayout();
             SuspendLayout();
             // 
             // schedulerControl1
             // 
+            schedulerControl1.ActiveViewType = DevExpress.XtraScheduler.SchedulerViewType.Month;
             schedulerControl1.DataStorage = schedulerDataStorage1;
-            schedulerControl1.Location = new System.Drawing.Point(166, 274);
+            schedulerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            schedulerControl1.Location = new System.Drawing.Point(2, 2);
             schedulerControl1.Name = "schedulerControl1";
-            schedulerControl1.Size = new System.Drawing.Size(1275, 723);
-            schedulerControl1.Start = new System.DateTime(2025, 12, 4, 0, 0, 0, 0);
+            schedulerControl1.Size = new System.Drawing.Size(1777, 921);
+            schedulerControl1.Start = new System.DateTime(2025, 11, 30, 0, 0, 0, 0);
             schedulerControl1.TabIndex = 0;
             schedulerControl1.Text = "schedulerControl1";
             schedulerControl1.Views.DayView.TimeRulers.Add(timeRuler1);
             schedulerControl1.Views.FullWeekView.Enabled = true;
             schedulerControl1.Views.FullWeekView.TimeRulers.Add(timeRuler2);
-            schedulerControl1.Views.WeekView.Enabled = false;
             schedulerControl1.Views.WorkWeekView.TimeRulers.Add(timeRuler3);
             schedulerControl1.Views.YearView.UseOptimizedScrolling = false;
             // 
@@ -94,13 +98,21 @@
             // 
             // ribbonControl1
             // 
+            ribbonControl1.CommandLayout = DevExpress.XtraBars.Ribbon.CommandLayout.Simplified;
             ribbonControl1.ExpandCollapseItem.Id = 0;
             ribbonControl1.Items.AddRange(new DevExpress.XtraBars.BarItem[] { ribbonControl1.ExpandCollapseItem, btnViewDay, btnViewWeek, btnViewMonth, btnPrevDay, btnNextDay, btnToday, btnFilterAreaA, btnFilterAreaB, btnFilterAllResources, btnFilterMyResources });
             ribbonControl1.Location = new System.Drawing.Point(0, 0);
             ribbonControl1.MaxItemId = 12;
             ribbonControl1.Name = "ribbonControl1";
             ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] { ribbonPage1 });
-            ribbonControl1.Size = new System.Drawing.Size(1781, 225);
+            ribbonControl1.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.OfficeUniversal;
+            ribbonControl1.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
+            ribbonControl1.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
+            ribbonControl1.ShowPageHeadersInFormCaption = DevExpress.Utils.DefaultBoolean.False;
+            ribbonControl1.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide;
+            ribbonControl1.ShowToolbarCustomizeItem = false;
+            ribbonControl1.Size = new System.Drawing.Size(1781, 86);
+            ribbonControl1.Toolbar.ShowCustomizeItem = false;
             // 
             // btnViewDay
             // 
@@ -218,17 +230,28 @@
             ribbonPageGroup3.ItemLinks.Add(btnFilterMyResources);
             ribbonPageGroup3.Name = "ribbonPageGroup3";
             // 
+            // panelControl1
+            // 
+            panelControl1.Controls.Add(schedulerControl1);
+            panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            panelControl1.Location = new System.Drawing.Point(0, 86);
+            panelControl1.Name = "panelControl1";
+            panelControl1.Size = new System.Drawing.Size(1781, 925);
+            panelControl1.TabIndex = 1;
+            // 
             // CalendarPage
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(panelControl1);
             Controls.Add(ribbonControl1);
-            Controls.Add(schedulerControl1);
             Name = "CalendarPage";
             Size = new System.Drawing.Size(1781, 1011);
             ((System.ComponentModel.ISupportInitialize)schedulerControl1).EndInit();
             ((System.ComponentModel.ISupportInitialize)schedulerDataStorage1).EndInit();
             ((System.ComponentModel.ISupportInitialize)ribbonControl1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)panelControl1).EndInit();
+            panelControl1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -252,5 +275,6 @@
         private DevExpress.XtraBars.BarButtonItem btnFilterMyResources;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;
+        private DevExpress.XtraEditors.PanelControl panelControl1;
     }
 }
