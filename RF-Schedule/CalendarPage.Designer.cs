@@ -74,6 +74,7 @@
             schedulerControl1.Views.FullWeekView.TimeRulers.Add(timeRuler2);
             schedulerControl1.Views.WorkWeekView.TimeRulers.Add(timeRuler3);
             schedulerControl1.Views.YearView.UseOptimizedScrolling = false;
+            schedulerControl1.Click += schedulerControl1_Click;
             // 
             // schedulerDataStorage1
             // 
@@ -121,6 +122,7 @@
             btnViewDay.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("btnViewDay.ImageOptions.Image");
             btnViewDay.Name = "btnViewDay";
             btnViewDay.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText;
+            btnViewDay.ItemClick += btnViewDay_ItemClick;
             // 
             // btnViewWeek
             // 
@@ -129,6 +131,7 @@
             btnViewWeek.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("btnViewWeek.ImageOptions.Image");
             btnViewWeek.Name = "btnViewWeek";
             btnViewWeek.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText;
+            btnViewWeek.ItemClick += btnViewWeek_ItemClick;
             // 
             // btnViewMonth
             // 
@@ -137,6 +140,7 @@
             btnViewMonth.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("btnViewMonth.ImageOptions.Image");
             btnViewMonth.Name = "btnViewMonth";
             btnViewMonth.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText;
+            btnViewMonth.ItemClick += btnViewMonth_ItemClick;
             // 
             // btnPrevDay
             // 
@@ -146,6 +150,7 @@
             btnPrevDay.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("btnPrevDay.ImageOptions.LargeImage");
             btnPrevDay.Name = "btnPrevDay";
             btnPrevDay.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText;
+            btnPrevDay.ItemClick += btnPrevDay_ItemClick;
             // 
             // btnNextDay
             // 
@@ -155,6 +160,7 @@
             btnNextDay.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("btnNextDay.ImageOptions.LargeImage");
             btnNextDay.Name = "btnNextDay";
             btnNextDay.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText;
+            btnNextDay.ItemClick += btnNextDay_ItemClick;
             // 
             // btnToday
             // 
@@ -164,6 +170,7 @@
             btnToday.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("btnToday.ImageOptions.LargeImage");
             btnToday.Name = "btnToday";
             btnToday.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText;
+            btnToday.ItemClick += btnToday_ItemClick;
             // 
             // btnFilterAreaA
             // 
