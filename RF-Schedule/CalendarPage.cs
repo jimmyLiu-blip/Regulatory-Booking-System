@@ -7,48 +7,60 @@ namespace RF_Schedule
 {
     public partial class CalendarPage : DevExpress.XtraEditors.XtraUserControl
     {
-        // null = 全部, "A" = 只顯示 A 區, "B" = 只顯示 B 區
+        // ================================
+        // 【Ⅰ】排程畫面狀態（顯示哪一區）
+        // ================================
+        // null = 全部場地
+        // "A" = A 區
+        // "B" = B 區
         private string? _currentGroupFilter = null;
+
+
 
         public CalendarPage()
         {
             InitializeComponent();
 
-            // 在這裡訂閱 FilterResource 事件（很重要，要在資料初始化前）
+            // 【重要】先註冊 Resource 過濾事件
             schedulerDataStorage1.FilterResource += schedulerDataStorage1_FilterResource;
         }
 
 
-        private void btnViewDay_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            schedulerControl1.ActiveViewType = DevExpress.XtraScheduler.SchedulerViewType.Day;
-        }
 
-        private void btnViewWeek_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            schedulerControl1.ActiveViewType = DevExpress.XtraScheduler.SchedulerViewType.Week;
-        }
+        // =======================================
+        // 【Ⅱ】UI：視圖切換（日 / 週 / 月 / 時間軸）
+        // =======================================
+        private void btnViewDay_ItemClick(object sender, ItemClickEventArgs e)
+            => schedulerControl1.ActiveViewType = SchedulerViewType.Day;
 
-        private void btnViewMonth_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            schedulerControl1.ActiveViewType = DevExpress.XtraScheduler.SchedulerViewType.Month;
-        }
+        private void btnViewWeek_ItemClick(object sender, ItemClickEventArgs e)
+            => schedulerControl1.ActiveViewType = SchedulerViewType.Week;
 
-        private void btnToday_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            schedulerControl1.Start = DateTime.Today;
-        }
+        private void btnViewMonth_ItemClick(object sender, ItemClickEventArgs e)
+            => schedulerControl1.ActiveViewType = SchedulerViewType.Month;
 
-        private void btnPrevDay_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            GoToPreviousPeriod();
-        }
+        private void btnViewTimeLine_ItemClick(object sender, ItemClickEventArgs e)
+            => schedulerControl1.ActiveViewType = SchedulerViewType.Timeline;
 
-        private void schedulerControl1_Click(object sender, EventArgs e)
-        {
 
-        }
 
+        // =======================================
+        // 【Ⅲ】UI：日期切換（前一天 / 下一天 / 今天）
+        // =======================================
+        private void btnToday_ItemClick(object sender, ItemClickEventArgs e)
+            => schedulerControl1.Start = DateTime.Today;
+
+        private void btnPrevDay_ItemClick(object sender, ItemClickEventArgs e)
+            => GoToPreviousPeriod();
+
+        private void btnNextDay_ItemClick(object sender, ItemClickEventArgs e)
+            => GoToNextPeriod();
+
+
+
+        // =======================================================
+        // 【Ⅳ】日期切換邏輯（依目前視圖 Day/Week/Month 推移）
+        // =======================================================
         private void GoToPreviousPeriod()
         {
             switch (schedulerControl1.ActiveViewType)
@@ -56,26 +68,15 @@ namespace RF_Schedule
                 case SchedulerViewType.Day:
                     schedulerControl1.Start = schedulerControl1.Start.AddDays(-1);
                     break;
+
                 case SchedulerViewType.Week:
                     schedulerControl1.Start = schedulerControl1.Start.AddDays(-7);
                     break;
+
                 case SchedulerViewType.Month:
-                    var currentStart = schedulerControl1.Start;
-                    // 改用 ActiveView 的實際顯示日期
-                    var monthView = schedulerControl1.ActiveView as DevExpress.XtraScheduler.MonthView;
-                    if (monthView != null) // 確認是不是使用月視圖
-                    {
-                        var visibleInterval = monthView.GetVisibleIntervals()[0];
-                        var displayedMonth = visibleInterval.Start.AddDays(15); // 取中間日期確保在正確月份
-                        var targetMonth = new DateTime(displayedMonth.Year, displayedMonth.Month, 1).AddMonths(-1);
-                        schedulerControl1.Start = targetMonth;
-                    }
-                    else
-                    {
-                        var firstDayOfMonth = new DateTime(currentStart.Year, currentStart.Month, 1);
-                        schedulerControl1.Start = firstDayOfMonth.AddMonths(-1);
-                    }
+                    MoveMonth(-1);
                     break;
+
                 default:
                     schedulerControl1.Start = schedulerControl1.Start.AddDays(-1);
                     break;
@@ -89,26 +90,15 @@ namespace RF_Schedule
                 case SchedulerViewType.Day:
                     schedulerControl1.Start = schedulerControl1.Start.AddDays(1);
                     break;
+
                 case SchedulerViewType.Week:
                     schedulerControl1.Start = schedulerControl1.Start.AddDays(7);
                     break;
-                case SchedulerViewType.Month:
-                    var currentStart = schedulerControl1.Start;
 
-                    var monthView = schedulerControl1.ActiveView as DevExpress.XtraScheduler.MonthView;
-                    if (monthView != null)
-                    {
-                        var visibleInterval = monthView.GetVisibleIntervals()[0];
-                        var displayedMonth = visibleInterval.Start.AddDays(15);
-                        var targetMonth = new DateTime(displayedMonth.Year, displayedMonth.Month, 1).AddMonths(1);
-                        schedulerControl1.Start = targetMonth;
-                    }
-                    else
-                    {
-                        var firstDayOfMonth = new DateTime(currentStart.Year, currentStart.Month, 1);
-                        schedulerControl1.Start = firstDayOfMonth.AddMonths(1);
-                    }
+                case SchedulerViewType.Month:
+                    MoveMonth(1);
                     break;
+
                 default:
                     schedulerControl1.Start = schedulerControl1.Start.AddDays(1);
                     break;
@@ -116,22 +106,89 @@ namespace RF_Schedule
         }
 
 
-        private void btnNextDay_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        // 獨立方法（簡化 Month 切換邏輯）
+        private void MoveMonth(int offset)
         {
-            GoToNextPeriod();
+            var monthView = schedulerControl1.ActiveView as MonthView;
+
+            if (monthView != null)
+            {
+                var visibleInterval = monthView.GetVisibleIntervals()[0];
+                var midDate = visibleInterval.Start.AddDays(15);
+                var targetMonth = new DateTime(midDate.Year, midDate.Month, 1).AddMonths(offset);
+                schedulerControl1.Start = targetMonth;
+            }
+            else
+            {
+                var currentStart = schedulerControl1.Start;
+                var first = new DateTime(currentStart.Year, currentStart.Month, 1);
+                schedulerControl1.Start = first.AddMonths(offset);
+            }
         }
 
 
-        private void InitResources()  // 假資料會刪除
+
+        // ============================================
+        // 【Ⅴ】場地篩選（A 區 / B 區 / 全部）
+        // ============================================
+        private void btnFilterAreaA_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            _currentGroupFilter = "A";
+            schedulerControl1.ActiveView.LayoutChanged();
+        }
+
+        private void btnFilterAreaB_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            _currentGroupFilter = "B";
+            schedulerControl1.ActiveView.LayoutChanged();
+        }
+
+        private void btnFilterAllResources_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            _currentGroupFilter = null; // 顯示全部
+            schedulerControl1.ActiveView.LayoutChanged();
+        }
+
+
+
+        // ===========================================================
+        // 【Ⅵ】FilterResource 事件：真正決定哪些 Resource 顯示
+        // ===========================================================
+        private void schedulerDataStorage1_FilterResource(object sender, PersistentObjectCancelEventArgs e)
+        {
+            // 沒有篩選 → 顯示全部
+            if (string.IsNullOrEmpty(_currentGroupFilter))
+                return;
+
+            Resource res = (Resource)e.Object;
+            string? group = res.CustomFields["Group"]?.ToString();
+
+            // 如果這個場地不屬於目前要顯示的 Group → 隱藏
+            if (!string.Equals(group, _currentGroupFilter, StringComparison.OrdinalIgnoreCase))
+            {
+                e.Cancel = true;
+            }
+        }
+
+
+
+        // ================================================================
+        // 【Ⅶ】初始化場地（假資料）★ 未來改 DB → 這段全部會刪除 ★
+        // ================================================================
+        private void CalendarPage_Load_1(object sender, EventArgs e)
+        {
+            InitResources();  // TODO: 這整段未來接資料庫後會刪除
+        }
+
+        private void InitResources()  // TODO: 假資料會刪除，正式版資料從 DB 載入
         {
             schedulerDataStorage1.Resources.CustomFieldMappings.Add(
-            new DevExpress.XtraScheduler.ResourceCustomFieldMapping("Group", "Group")
+                new ResourceCustomFieldMapping("Group", "Group")
             );
+
             var storage = schedulerDataStorage1;
 
-            // ============================
-            // A 區場地
-            // ============================
+            // ============ A 區（假資料）============
             AddResource(storage, 101, "SAC1", "A");
             AddResource(storage, 102, "SAC2", "A");
             AddResource(storage, 103, "SAC3", "A");
@@ -144,9 +201,7 @@ namespace RF_Schedule
             AddResource(storage, 115, "Conducted 5", "A");
             AddResource(storage, 116, "Conducted 6", "A");
 
-            // ============================
-            // B 區場地
-            // ============================
+            // ============ B 區（假資料）============
             AddResource(storage, 201, "SAC C", "B");
             AddResource(storage, 202, "SAC D", "B");
             AddResource(storage, 203, "SAC G", "B");
@@ -160,59 +215,12 @@ namespace RF_Schedule
             AddResource(storage, 216, "Conducted F", "B");
         }
 
-
         private void AddResource(SchedulerDataStorage storage, int id, string caption, string group)
         {
-            var res = storage.CreateResource(id);  // 每個場地唯一 ID
-            res.Caption = caption;                 // 顯示名稱
-            res.CustomFields["Group"] = group;     // A or B
-            storage.Resources.Add(res);            // 加進 Scheduler
+            var res = storage.CreateResource(id);
+            res.Caption = caption;
+            res.CustomFields["Group"] = group; // A or B
+            storage.Resources.Add(res);
         }
-
-        private void CalendarPage_Load_1(object sender, EventArgs e)
-        {
-            InitResources();
-        }
-
-        private void btnViewTimeLine_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            schedulerControl1.ActiveViewType = SchedulerViewType.Timeline;
-        }
-
-        private void btnFilterAreaA_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            _currentGroupFilter = "A";                       // 只看 A 區
-            schedulerControl1.ActiveView.LayoutChanged();    // 通知 Scheduler 重新套用 FilterResource
-        }
-
-        private void btnFilterAreaB_ItemClick_1(object sender, ItemClickEventArgs e)
-        {
-            _currentGroupFilter = "B";
-            schedulerControl1.ActiveView.LayoutChanged();
-        }
-
-        private void btnFilterAllResources_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            _currentGroupFilter = null;                      // 清掉 Filter = 顯示全部場地
-            schedulerControl1.ActiveView.LayoutChanged();
-        }
-
-        private void schedulerDataStorage1_FilterResource(object sender, PersistentObjectCancelEventArgs e)
-        {
-            // 沒有指定 Filter → 顯示全部資源
-            if (string.IsNullOrEmpty(_currentGroupFilter))
-                return;
-
-            Resource res = (Resource)e.Object;
-            var group = res.CustomFields["Group"]?.ToString();
-
-            // 如果這個 Resource 的 Group 不是目前選的，就把它隱藏
-            if (!string.Equals(group, _currentGroupFilter, StringComparison.OrdinalIgnoreCase))
-            {
-                e.Cancel = true;   // 取消顯示這個資源
-            }
-        }
-
-
     }
 }

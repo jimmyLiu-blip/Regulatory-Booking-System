@@ -76,7 +76,6 @@
             schedulerControl1.Views.FullWeekView.TimeRulers.Add(timeRuler2);
             schedulerControl1.Views.WorkWeekView.TimeRulers.Add(timeRuler3);
             schedulerControl1.Views.YearView.UseOptimizedScrolling = false;
-            schedulerControl1.Click += schedulerControl1_Click;
             // 
             // schedulerDataStorage1
             // 
@@ -192,7 +191,7 @@
             btnFilterAreaB.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("btnFilterAreaB.ImageOptions.LargeImage");
             btnFilterAreaB.Name = "btnFilterAreaB";
             btnFilterAreaB.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText;
-            btnFilterAreaB.ItemClick += btnFilterAreaB_ItemClick_1;
+            btnFilterAreaB.ItemClick += btnFilterAreaB_ItemClick;
             // 
             // btnFilterAllResources
             // 
