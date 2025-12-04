@@ -46,6 +46,7 @@
             btnFilterAreaB = new DevExpress.XtraBars.BarButtonItem();
             btnFilterAllResources = new DevExpress.XtraBars.BarButtonItem();
             btnFilterMyResources = new DevExpress.XtraBars.BarButtonItem();
+            btnViewTimeLine = new DevExpress.XtraBars.BarButtonItem();
             ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -63,6 +64,7 @@
             schedulerControl1.ActiveViewType = DevExpress.XtraScheduler.SchedulerViewType.Month;
             schedulerControl1.DataStorage = schedulerDataStorage1;
             schedulerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            schedulerControl1.GroupType = DevExpress.XtraScheduler.SchedulerGroupType.Resource;
             schedulerControl1.Location = new System.Drawing.Point(2, 2);
             schedulerControl1.Name = "schedulerControl1";
             schedulerControl1.Size = new System.Drawing.Size(1777, 921);
@@ -101,9 +103,9 @@
             // 
             ribbonControl1.CommandLayout = DevExpress.XtraBars.Ribbon.CommandLayout.Simplified;
             ribbonControl1.ExpandCollapseItem.Id = 0;
-            ribbonControl1.Items.AddRange(new DevExpress.XtraBars.BarItem[] { ribbonControl1.ExpandCollapseItem, btnViewDay, btnViewWeek, btnViewMonth, btnPrevDay, btnNextDay, btnToday, btnFilterAreaA, btnFilterAreaB, btnFilterAllResources, btnFilterMyResources });
+            ribbonControl1.Items.AddRange(new DevExpress.XtraBars.BarItem[] { ribbonControl1.ExpandCollapseItem, btnViewDay, btnViewWeek, btnViewMonth, btnPrevDay, btnNextDay, btnToday, btnFilterAreaA, btnFilterAreaB, btnFilterAllResources, btnFilterMyResources, btnViewTimeLine });
             ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            ribbonControl1.MaxItemId = 12;
+            ribbonControl1.MaxItemId = 13;
             ribbonControl1.Name = "ribbonControl1";
             ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] { ribbonPage1 });
             ribbonControl1.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.OfficeUniversal;
@@ -208,6 +210,15 @@
             btnFilterMyResources.Name = "btnFilterMyResources";
             btnFilterMyResources.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText;
             // 
+            // btnViewTimeLine
+            // 
+            btnViewTimeLine.Hint = "TimelineView";
+            btnViewTimeLine.Id = 12;
+            btnViewTimeLine.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("btnViewTimeLine.ImageOptions.Image");
+            btnViewTimeLine.Name = "btnViewTimeLine";
+            btnViewTimeLine.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText;
+            btnViewTimeLine.ItemClick += btnViewTimeLine_ItemClick;
+            // 
             // ribbonPage1
             // 
             ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] { ribbonPageGroup1, ribbonPageGroup2, ribbonPageGroup3 });
@@ -220,6 +231,7 @@
             ribbonPageGroup1.ItemLinks.Add(btnViewDay);
             ribbonPageGroup1.ItemLinks.Add(btnViewWeek);
             ribbonPageGroup1.ItemLinks.Add(btnViewMonth);
+            ribbonPageGroup1.ItemLinks.Add(btnViewTimeLine);
             ribbonPageGroup1.Name = "ribbonPageGroup1";
             // 
             // ribbonPageGroup2
@@ -254,6 +266,7 @@
             Controls.Add(ribbonControl1);
             Name = "CalendarPage";
             Size = new System.Drawing.Size(1781, 1011);
+            Load += CalendarPage_Load_1;
             ((System.ComponentModel.ISupportInitialize)schedulerControl1).EndInit();
             ((System.ComponentModel.ISupportInitialize)schedulerDataStorage1).EndInit();
             ((System.ComponentModel.ISupportInitialize)ribbonControl1).EndInit();
@@ -283,5 +296,6 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;
         private DevExpress.XtraEditors.PanelControl panelControl1;
+        private DevExpress.XtraBars.BarButtonItem btnViewTimeLine;
     }
 }
