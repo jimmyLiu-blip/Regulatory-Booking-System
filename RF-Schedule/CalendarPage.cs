@@ -1,13 +1,21 @@
-﻿using DevExpress.XtraScheduler;
+﻿using DevExpress.XtraBars;
+using DevExpress.XtraScheduler;
 using System;
+using System.Linq;
 
 namespace RF_Schedule
 {
     public partial class CalendarPage : DevExpress.XtraEditors.XtraUserControl
     {
+        // null = 全部, "A" = 只顯示 A 區, "B" = 只顯示 B 區
+        private string? _currentGroupFilter = null;
+
         public CalendarPage()
         {
             InitializeComponent();
+
+            // 在這裡訂閱 FilterResource 事件（很重要，要在資料初始化前）
+            schedulerDataStorage1.FilterResource += schedulerDataStorage1_FilterResource;
         }
 
 
@@ -170,5 +178,41 @@ namespace RF_Schedule
         {
             schedulerControl1.ActiveViewType = SchedulerViewType.Timeline;
         }
+
+        private void btnFilterAreaA_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            _currentGroupFilter = "A";                       // 只看 A 區
+            schedulerControl1.ActiveView.LayoutChanged();    // 通知 Scheduler 重新套用 FilterResource
+        }
+
+        private void btnFilterAreaB_ItemClick_1(object sender, ItemClickEventArgs e)
+        {
+            _currentGroupFilter = "B";
+            schedulerControl1.ActiveView.LayoutChanged();
+        }
+
+        private void btnFilterAllResources_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            _currentGroupFilter = null;                      // 清掉 Filter = 顯示全部場地
+            schedulerControl1.ActiveView.LayoutChanged();
+        }
+
+        private void schedulerDataStorage1_FilterResource(object sender, PersistentObjectCancelEventArgs e)
+        {
+            // 沒有指定 Filter → 顯示全部資源
+            if (string.IsNullOrEmpty(_currentGroupFilter))
+                return;
+
+            Resource res = (Resource)e.Object;
+            var group = res.CustomFields["Group"]?.ToString();
+
+            // 如果這個 Resource 的 Group 不是目前選的，就把它隱藏
+            if (!string.Equals(group, _currentGroupFilter, StringComparison.OrdinalIgnoreCase))
+            {
+                e.Cancel = true;   // 取消顯示這個資源
+            }
+        }
+
+
     }
 }

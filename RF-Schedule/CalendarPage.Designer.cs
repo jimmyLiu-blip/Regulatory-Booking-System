@@ -182,6 +182,7 @@
             btnFilterAreaA.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("btnFilterAreaA.ImageOptions.LargeImage");
             btnFilterAreaA.Name = "btnFilterAreaA";
             btnFilterAreaA.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText;
+            btnFilterAreaA.ItemClick += btnFilterAreaA_ItemClick;
             // 
             // btnFilterAreaB
             // 
@@ -191,6 +192,7 @@
             btnFilterAreaB.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("btnFilterAreaB.ImageOptions.LargeImage");
             btnFilterAreaB.Name = "btnFilterAreaB";
             btnFilterAreaB.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText;
+            btnFilterAreaB.ItemClick += btnFilterAreaB_ItemClick_1;
             // 
             // btnFilterAllResources
             // 
@@ -200,6 +202,7 @@
             btnFilterAllResources.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("btnFilterAllResources.ImageOptions.LargeImage");
             btnFilterAllResources.Name = "btnFilterAllResources";
             btnFilterAllResources.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText;
+            btnFilterAllResources.ItemClick += btnFilterAllResources_ItemClick;
             // 
             // btnFilterMyResources
             // 
