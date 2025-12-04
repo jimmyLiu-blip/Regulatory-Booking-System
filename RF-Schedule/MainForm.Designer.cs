@@ -30,7 +30,6 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            schedulerStorage = new DevExpress.XtraScheduler.SchedulerDataStorage(components);
             ribbonControl = new DevExpress.XtraBars.Ribbon.RibbonControl();
             btnOpenCalendar = new DevExpress.XtraBars.BarButtonItem();
             btnOpenProject = new DevExpress.XtraBars.BarButtonItem();
@@ -42,30 +41,15 @@
             btnEngineerReportList = new DevExpress.XtraBars.BarButtonItem();
             documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(components);
             tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(components);
-            ((System.ComponentModel.ISupportInitialize)schedulerStorage).BeginInit();
+            dateNavigator1 = new DevExpress.XtraScheduler.DateNavigator();
             ((System.ComponentModel.ISupportInitialize)ribbonControl).BeginInit();
             ((System.ComponentModel.ISupportInitialize)repositoryItemDuration1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)repositoryItemSpinEdit1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)documentManager1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tabbedView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dateNavigator1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dateNavigator1.CalendarTimeProperties).BeginInit();
             SuspendLayout();
-            // 
-            // schedulerStorage
-            // 
-            // 
-            // 
-            // 
-            schedulerStorage.Appointments.Labels.CreateNewLabel(0, "None", "&None", System.Drawing.SystemColors.Window);
-            schedulerStorage.Appointments.Labels.CreateNewLabel(1, "Important", "&Important", System.Drawing.Color.FromArgb(255, 194, 190));
-            schedulerStorage.Appointments.Labels.CreateNewLabel(2, "Business", "&Business", System.Drawing.Color.FromArgb(168, 213, 255));
-            schedulerStorage.Appointments.Labels.CreateNewLabel(3, "Personal", "&Personal", System.Drawing.Color.FromArgb(193, 244, 156));
-            schedulerStorage.Appointments.Labels.CreateNewLabel(4, "Vacation", "&Vacation", System.Drawing.Color.FromArgb(243, 228, 199));
-            schedulerStorage.Appointments.Labels.CreateNewLabel(5, "Must Attend", "Must &Attend", System.Drawing.Color.FromArgb(244, 206, 147));
-            schedulerStorage.Appointments.Labels.CreateNewLabel(6, "Travel Required", "&Travel Required", System.Drawing.Color.FromArgb(199, 244, 255));
-            schedulerStorage.Appointments.Labels.CreateNewLabel(7, "Needs Preparation", "&Needs Preparation", System.Drawing.Color.FromArgb(207, 219, 152));
-            schedulerStorage.Appointments.Labels.CreateNewLabel(8, "Birthday", "&Birthday", System.Drawing.Color.FromArgb(224, 207, 233));
-            schedulerStorage.Appointments.Labels.CreateNewLabel(9, "Anniversary", "&Anniversary", System.Drawing.Color.FromArgb(141, 233, 223));
-            schedulerStorage.Appointments.Labels.CreateNewLabel(10, "Phone Call", "Phone &Call", System.Drawing.Color.FromArgb(255, 247, 165));
             // 
             // ribbonControl
             // 
@@ -156,24 +140,37 @@
             documentManager1.View = tabbedView1;
             documentManager1.ViewCollection.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseView[] { tabbedView1 });
             // 
+            // dateNavigator1
+            // 
+            dateNavigator1.CalendarAppearance.DayCellSpecial.FontStyleDelta = System.Drawing.FontStyle.Bold;
+            dateNavigator1.CalendarAppearance.DayCellSpecial.Options.UseFont = true;
+            dateNavigator1.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            dateNavigator1.FirstDayOfWeek = System.DayOfWeek.Sunday;
+            dateNavigator1.Location = new System.Drawing.Point(958, 346);
+            dateNavigator1.Name = "dateNavigator1";
+            dateNavigator1.Size = new System.Drawing.Size(8, 8);
+            dateNavigator1.TabIndex = 2;
+            // 
             // MainForm
             // 
             AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
             AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1858, 924);
+            Controls.Add(dateNavigator1);
             Controls.Add(ribbonControl);
             IconOptions.LargeImage = (System.Drawing.Image)resources.GetObject("MainForm.IconOptions.LargeImage");
             IsMdiContainer = true;
             Name = "MainForm";
             Ribbon = ribbonControl;
             Text = "MainForm";
-            ((System.ComponentModel.ISupportInitialize)schedulerStorage).EndInit();
             ((System.ComponentModel.ISupportInitialize)ribbonControl).EndInit();
             ((System.ComponentModel.ISupportInitialize)repositoryItemDuration1).EndInit();
             ((System.ComponentModel.ISupportInitialize)repositoryItemSpinEdit1).EndInit();
             ((System.ComponentModel.ISupportInitialize)documentManager1).EndInit();
             ((System.ComponentModel.ISupportInitialize)tabbedView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dateNavigator1.CalendarTimeProperties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dateNavigator1).EndInit();
             ResumeLayout(false);
             PerformLayout();
 
@@ -181,7 +178,6 @@
 
         #endregion
         private DevExpress.XtraBars.Ribbon.RibbonControl ribbonControl;
-        private DevExpress.XtraScheduler.SchedulerDataStorage schedulerStorage;
         private DevExpress.XtraScheduler.UI.RepositoryItemDuration repositoryItemDuration1;
         private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit repositoryItemSpinEdit1;
         private DevExpress.XtraScheduler.UI.CalendarToolsRibbonPageCategory calendarToolsRibbonPageCategory1;
@@ -192,5 +188,6 @@
         private DevExpress.XtraBars.BarButtonItem btnOpenProject;
         private DevExpress.XtraBars.Docking2010.DocumentManager documentManager1;
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView tabbedView1;
+        private DevExpress.XtraScheduler.DateNavigator dateNavigator1;
     }
 }
