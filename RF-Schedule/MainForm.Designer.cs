@@ -32,18 +32,22 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             schedulerStorage = new DevExpress.XtraScheduler.SchedulerDataStorage(components);
             ribbonControl = new DevExpress.XtraBars.Ribbon.RibbonControl();
+            btnOpenCalendar = new DevExpress.XtraBars.BarButtonItem();
+            btnOpenProject = new DevExpress.XtraBars.BarButtonItem();
             rpSchedule = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            pgScheduleManagement = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             repositoryItemDuration1 = new DevExpress.XtraScheduler.UI.RepositoryItemDuration();
             repositoryItemSpinEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             calendarToolsRibbonPageCategory1 = new DevExpress.XtraScheduler.UI.CalendarToolsRibbonPageCategory();
             btnEngineerReportList = new DevExpress.XtraBars.BarButtonItem();
-            pgScheduleManagement = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            btnOpenCalendar = new DevExpress.XtraBars.BarButtonItem();
-            btnOpenProject = new DevExpress.XtraBars.BarButtonItem();
+            documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(components);
+            tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(components);
             ((System.ComponentModel.ISupportInitialize)schedulerStorage).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ribbonControl).BeginInit();
             ((System.ComponentModel.ISupportInitialize)repositoryItemDuration1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)repositoryItemSpinEdit1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)documentManager1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tabbedView1).BeginInit();
             SuspendLayout();
             // 
             // schedulerStorage
@@ -84,13 +88,37 @@
             ribbonControl.ShowToolbarCustomizeItem = false;
             ribbonControl.Size = new System.Drawing.Size(1858, 237);
             ribbonControl.Toolbar.ShowCustomizeItem = false;
-            ribbonControl.Click += ribbonControl_Click;
+            // 
+            // btnOpenCalendar
+            // 
+            btnOpenCalendar.Caption = "排程日曆";
+            btnOpenCalendar.Id = 127;
+            btnOpenCalendar.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("btnOpenCalendar.ImageOptions.Image");
+            btnOpenCalendar.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("btnOpenCalendar.ImageOptions.LargeImage");
+            btnOpenCalendar.Name = "btnOpenCalendar";
+            btnOpenCalendar.ItemClick += btnOpenCalendar_ItemClick_1;
+            // 
+            // btnOpenProject
+            // 
+            btnOpenProject.Caption = "案件管理";
+            btnOpenProject.Id = 128;
+            btnOpenProject.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("btnOpenProject.ImageOptions.Image");
+            btnOpenProject.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("btnOpenProject.ImageOptions.LargeImage");
+            btnOpenProject.Name = "btnOpenProject";
+            btnOpenProject.ItemClick += btnOpenProject_ItemClick;
             // 
             // rpSchedule
             // 
             rpSchedule.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] { pgScheduleManagement });
             rpSchedule.Name = "rpSchedule";
             rpSchedule.Text = "排程";
+            // 
+            // pgScheduleManagement
+            // 
+            pgScheduleManagement.ItemLinks.Add(btnOpenCalendar);
+            pgScheduleManagement.ItemLinks.Add(btnOpenProject);
+            pgScheduleManagement.Name = "pgScheduleManagement";
+            pgScheduleManagement.Text = "排程管理";
             // 
             // repositoryItemDuration1
             // 
@@ -121,29 +149,12 @@
             btnEngineerReportList.Id = 123;
             btnEngineerReportList.Name = "btnEngineerReportList";
             // 
-            // pgScheduleManagement
+            // documentManager1
             // 
-            pgScheduleManagement.ItemLinks.Add(btnOpenCalendar);
-            pgScheduleManagement.ItemLinks.Add(btnOpenProject);
-            pgScheduleManagement.Name = "pgScheduleManagement";
-            pgScheduleManagement.Text = "排程管理";
-            // 
-            // btnOpenCalendar
-            // 
-            btnOpenCalendar.Caption = "排程日曆";
-            btnOpenCalendar.Id = 127;
-            btnOpenCalendar.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("btnOpenCalendar.ImageOptions.Image");
-            btnOpenCalendar.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("btnOpenCalendar.ImageOptions.LargeImage");
-            btnOpenCalendar.Name = "btnOpenCalendar";
-            btnOpenCalendar.ItemClick += this.btnOpenCalendar_ItemClick_1;
-            // 
-            // btnOpenProject
-            // 
-            btnOpenProject.Caption = "案件管理";
-            btnOpenProject.Id = 128;
-            btnOpenProject.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("btnOpenProject.ImageOptions.Image");
-            btnOpenProject.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("btnOpenProject.ImageOptions.LargeImage");
-            btnOpenProject.Name = "btnOpenProject";
+            documentManager1.MdiParent = this;
+            documentManager1.MenuManager = ribbonControl;
+            documentManager1.View = tabbedView1;
+            documentManager1.ViewCollection.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseView[] { tabbedView1 });
             // 
             // MainForm
             // 
@@ -161,6 +172,8 @@
             ((System.ComponentModel.ISupportInitialize)ribbonControl).EndInit();
             ((System.ComponentModel.ISupportInitialize)repositoryItemDuration1).EndInit();
             ((System.ComponentModel.ISupportInitialize)repositoryItemSpinEdit1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)documentManager1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tabbedView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
 
@@ -177,5 +190,7 @@
         private DevExpress.XtraBars.BarButtonItem btnOpenCalendar;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup pgScheduleManagement;
         private DevExpress.XtraBars.BarButtonItem btnOpenProject;
+        private DevExpress.XtraBars.Docking2010.DocumentManager documentManager1;
+        private DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView tabbedView1;
     }
 }

@@ -11,11 +11,11 @@ using System.Windows.Forms;
 
 namespace RF_Schedule
 {
-	public partial class CalendarForm : DevExpress.XtraEditors.XtraForm
-{
-    public CalendarForm()
+    public partial class ProjectPage : DevExpress.XtraEditors.XtraUserControl
     {
-        InitializeComponent();
+        public ProjectPage()
+        {
+            InitializeComponent();
+        }
     }
-}
 }
