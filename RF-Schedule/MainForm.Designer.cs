@@ -41,14 +41,11 @@
             btnEngineerReportList = new DevExpress.XtraBars.BarButtonItem();
             documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(components);
             tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(components);
-            dateNavigator1 = new DevExpress.XtraScheduler.DateNavigator();
             ((System.ComponentModel.ISupportInitialize)ribbonControl).BeginInit();
             ((System.ComponentModel.ISupportInitialize)repositoryItemDuration1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)repositoryItemSpinEdit1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)documentManager1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tabbedView1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dateNavigator1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dateNavigator1.CalendarTimeProperties).BeginInit();
             SuspendLayout();
             // 
             // ribbonControl
@@ -140,24 +137,12 @@
             documentManager1.View = tabbedView1;
             documentManager1.ViewCollection.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseView[] { tabbedView1 });
             // 
-            // dateNavigator1
-            // 
-            dateNavigator1.CalendarAppearance.DayCellSpecial.FontStyleDelta = System.Drawing.FontStyle.Bold;
-            dateNavigator1.CalendarAppearance.DayCellSpecial.Options.UseFont = true;
-            dateNavigator1.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
-            dateNavigator1.FirstDayOfWeek = System.DayOfWeek.Sunday;
-            dateNavigator1.Location = new System.Drawing.Point(958, 346);
-            dateNavigator1.Name = "dateNavigator1";
-            dateNavigator1.Size = new System.Drawing.Size(8, 8);
-            dateNavigator1.TabIndex = 2;
-            // 
             // MainForm
             // 
             AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
             AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1858, 924);
-            Controls.Add(dateNavigator1);
             Controls.Add(ribbonControl);
             IconOptions.LargeImage = (System.Drawing.Image)resources.GetObject("MainForm.IconOptions.LargeImage");
             IsMdiContainer = true;
@@ -169,8 +154,6 @@
             ((System.ComponentModel.ISupportInitialize)repositoryItemSpinEdit1).EndInit();
             ((System.ComponentModel.ISupportInitialize)documentManager1).EndInit();
             ((System.ComponentModel.ISupportInitialize)tabbedView1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dateNavigator1.CalendarTimeProperties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dateNavigator1).EndInit();
             ResumeLayout(false);
             PerformLayout();
 
@@ -188,6 +171,5 @@
         private DevExpress.XtraBars.BarButtonItem btnOpenProject;
         private DevExpress.XtraBars.Docking2010.DocumentManager documentManager1;
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView tabbedView1;
-        private DevExpress.XtraScheduler.DateNavigator dateNavigator1;
     }
 }

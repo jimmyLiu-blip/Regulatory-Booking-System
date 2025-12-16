@@ -47,6 +47,7 @@
             gridControl1.Size = new System.Drawing.Size(1772, 1015);
             gridControl1.TabIndex = 0;
             gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gridView1 });
+            gridControl1.Click += gridControl1_Click;
             // 
             // gridView1
             // 
@@ -55,11 +56,11 @@
             // 
             // layoutControl1
             // 
-            layoutControl1.Dock = System.Windows.Forms.DockStyle.Top;
+            layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             layoutControl1.Location = new System.Drawing.Point(0, 0);
             layoutControl1.Name = "layoutControl1";
             layoutControl1.Root = Root;
-            layoutControl1.Size = new System.Drawing.Size(1772, 180);
+            layoutControl1.Size = new System.Drawing.Size(1772, 1015);
             layoutControl1.TabIndex = 1;
             layoutControl1.Text = "layoutControl1";
             // 
@@ -68,15 +69,15 @@
             Root.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
             Root.GroupBordersVisible = false;
             Root.Name = "Root";
-            Root.Size = new System.Drawing.Size(1772, 180);
+            Root.Size = new System.Drawing.Size(1772, 1015);
             Root.TextVisible = false;
             // 
             // ProjectPage
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            Controls.Add(layoutControl1);
             Controls.Add(gridControl1);
+            Controls.Add(layoutControl1);
             Name = "ProjectPage";
             Size = new System.Drawing.Size(1772, 1015);
             ((System.ComponentModel.ISupportInitialize)gridControl1).EndInit();

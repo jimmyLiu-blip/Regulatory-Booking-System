@@ -9,6 +9,17 @@
   <ItemGroup>
     <PackageReference Include="DevExpress.Win.Design" Version="25.1.4" />
     <PackageReference Include="DevExpress.Win.BonusSkins" Version="25.1.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RFScheduling.Domain\RFScheduling.Domain.csproj" />
+    <ProjectReference Include="..\RFScheduling.Infrastructure\RFScheduling.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

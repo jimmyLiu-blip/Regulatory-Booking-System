@@ -78,7 +78,7 @@ namespace RF_Schedule
                     break;
 
                 default:
-                    schedulerControl1.Start = schedulerControl1.Start.AddDays(-1);
+                    schedulerControl1.Start = schedulerControl1.Start.AddDays(-7);
                     break;
             }
         }
@@ -100,7 +100,7 @@ namespace RF_Schedule
                     break;
 
                 default:
-                    schedulerControl1.Start = schedulerControl1.Start.AddDays(1);
+                    schedulerControl1.Start = schedulerControl1.Start.AddDays(7);
                     break;
             }
         }
