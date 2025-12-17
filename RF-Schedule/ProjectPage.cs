@@ -56,5 +56,22 @@ namespace RF_Schedule
         {
 
         }
+
+        private void splitContainerControl1_Panel2_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+        {
+
+        }
+
+        // 綁定左邊的案件到右邊的詳細清單
+        private void gridView1_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        {
+            var project = gridView1.GetFocusedRow() as Project;
+            if (project == null) return;
+
+            txtProjectName.Text = project.ProjectName;
+            txtStatus.Text = project.Status;
+            txtPriority.Text = project.Priority;
+            txtCreatedDate.Text = project.CreatedDate.ToString("yyyy-MM-dd HH:mm");
+        }
     }
 }

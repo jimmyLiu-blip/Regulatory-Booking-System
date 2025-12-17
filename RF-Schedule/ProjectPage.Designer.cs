@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectPage));
             panelMain = new DevExpress.XtraEditors.PanelControl();
-            panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
             gridControl1 = new DevExpress.XtraGrid.GridControl();
             gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
@@ -39,18 +39,34 @@
             barButtonItem3 = new DevExpress.XtraBars.BarButtonItem();
             ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            txtCreatedDate = new DevExpress.XtraEditors.TextEdit();
+            txtPriority = new DevExpress.XtraEditors.TextEdit();
+            txtStatus = new DevExpress.XtraEditors.TextEdit();
+            txtProjectName = new DevExpress.XtraEditors.TextEdit();
+            lblCreatedDate = new DevExpress.XtraEditors.LabelControl();
+            lblPriority = new DevExpress.XtraEditors.LabelControl();
+            lblStatus = new DevExpress.XtraEditors.LabelControl();
+            lblProjectName = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)panelMain).BeginInit();
             panelMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
-            panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainerControl1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)splitContainerControl1.Panel1).BeginInit();
+            splitContainerControl1.Panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainerControl1.Panel2).BeginInit();
+            splitContainerControl1.Panel2.SuspendLayout();
+            splitContainerControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)gridControl1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ribbonControl1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtCreatedDate.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtPriority.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtStatus.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtProjectName.Properties).BeginInit();
             SuspendLayout();
             // 
             // panelMain
             // 
-            panelMain.Controls.Add(panelControl1);
+            panelMain.Controls.Add(splitContainerControl1);
             panelMain.Controls.Add(ribbonControl1);
             panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             panelMain.Location = new System.Drawing.Point(0, 0);
@@ -58,23 +74,42 @@
             panelMain.Size = new System.Drawing.Size(1772, 1015);
             panelMain.TabIndex = 0;
             // 
-            // panelControl1
+            // splitContainerControl1
             // 
-            panelControl1.Controls.Add(gridControl1);
-            panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            panelControl1.Location = new System.Drawing.Point(2, 191);
-            panelControl1.Name = "panelControl1";
-            panelControl1.Size = new System.Drawing.Size(1768, 822);
-            panelControl1.TabIndex = 3;
+            splitContainerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            splitContainerControl1.FixedPanel = DevExpress.XtraEditors.SplitFixedPanel.Panel2;
+            splitContainerControl1.Location = new System.Drawing.Point(2, 191);
+            splitContainerControl1.Name = "splitContainerControl1";
+            // 
+            // splitContainerControl1.Panel1
+            // 
+            splitContainerControl1.Panel1.Controls.Add(gridControl1);
+            splitContainerControl1.Panel1.Text = "Panel1";
+            // 
+            // splitContainerControl1.Panel2
+            // 
+            splitContainerControl1.Panel2.Controls.Add(txtCreatedDate);
+            splitContainerControl1.Panel2.Controls.Add(txtPriority);
+            splitContainerControl1.Panel2.Controls.Add(txtStatus);
+            splitContainerControl1.Panel2.Controls.Add(txtProjectName);
+            splitContainerControl1.Panel2.Controls.Add(lblCreatedDate);
+            splitContainerControl1.Panel2.Controls.Add(lblPriority);
+            splitContainerControl1.Panel2.Controls.Add(lblStatus);
+            splitContainerControl1.Panel2.Controls.Add(lblProjectName);
+            splitContainerControl1.Panel2.Text = "Panel2";
+            splitContainerControl1.Panel2.Paint += splitContainerControl1_Panel2_Paint;
+            splitContainerControl1.Size = new System.Drawing.Size(1768, 822);
+            splitContainerControl1.SplitterPosition = 450;
+            splitContainerControl1.TabIndex = 1;
             // 
             // gridControl1
             // 
             gridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            gridControl1.Location = new System.Drawing.Point(2, 2);
+            gridControl1.Location = new System.Drawing.Point(0, 0);
             gridControl1.MainView = gridView1;
             gridControl1.MenuManager = ribbonControl1;
             gridControl1.Name = "gridControl1";
-            gridControl1.Size = new System.Drawing.Size(1764, 818);
+            gridControl1.Size = new System.Drawing.Size(1303, 822);
             gridControl1.TabIndex = 0;
             gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gridView1 });
             gridControl1.Click += gridControl1_Click_2;
@@ -87,6 +122,7 @@
             gridView1.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.False;
             gridView1.OptionsBehavior.Editable = false;
             gridView1.OptionsView.ShowGroupPanel = false;
+            gridView1.FocusedRowChanged += gridView1_FocusedRowChanged;
             // 
             // ribbonControl1
             // 
@@ -146,6 +182,74 @@
             ribbonPageGroup1.Name = "ribbonPageGroup1";
             ribbonPageGroup1.Text = "案件管理";
             // 
+            // txtCreatedDate
+            // 
+            txtCreatedDate.Location = new System.Drawing.Point(151, 206);
+            txtCreatedDate.MenuManager = ribbonControl1;
+            txtCreatedDate.Name = "txtCreatedDate";
+            txtCreatedDate.Properties.ReadOnly = true;
+            txtCreatedDate.Size = new System.Drawing.Size(225, 28);
+            txtCreatedDate.TabIndex = 7;
+            // 
+            // txtPriority
+            // 
+            txtPriority.Location = new System.Drawing.Point(151, 153);
+            txtPriority.MenuManager = ribbonControl1;
+            txtPriority.Name = "txtPriority";
+            txtPriority.Properties.ReadOnly = true;
+            txtPriority.Size = new System.Drawing.Size(225, 28);
+            txtPriority.TabIndex = 6;
+            // 
+            // txtStatus
+            // 
+            txtStatus.Location = new System.Drawing.Point(151, 106);
+            txtStatus.MenuManager = ribbonControl1;
+            txtStatus.Name = "txtStatus";
+            txtStatus.Properties.ReadOnly = true;
+            txtStatus.Size = new System.Drawing.Size(225, 28);
+            txtStatus.TabIndex = 5;
+            // 
+            // txtProjectName
+            // 
+            txtProjectName.Location = new System.Drawing.Point(151, 63);
+            txtProjectName.MenuManager = ribbonControl1;
+            txtProjectName.Name = "txtProjectName";
+            txtProjectName.Properties.ReadOnly = true;
+            txtProjectName.Size = new System.Drawing.Size(225, 28);
+            txtProjectName.TabIndex = 4;
+            // 
+            // lblCreatedDate
+            // 
+            lblCreatedDate.Location = new System.Drawing.Point(28, 209);
+            lblCreatedDate.Name = "lblCreatedDate";
+            lblCreatedDate.Size = new System.Drawing.Size(108, 22);
+            lblCreatedDate.TabIndex = 3;
+            lblCreatedDate.Text = "CreatedDate :";
+            // 
+            // lblPriority
+            // 
+            lblPriority.Location = new System.Drawing.Point(69, 156);
+            lblPriority.Name = "lblPriority";
+            lblPriority.Size = new System.Drawing.Size(67, 22);
+            lblPriority.TabIndex = 2;
+            lblPriority.Text = "Priority :";
+            // 
+            // lblStatus
+            // 
+            lblStatus.Location = new System.Drawing.Point(75, 109);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new System.Drawing.Size(61, 22);
+            lblStatus.TabIndex = 1;
+            lblStatus.Text = "Status :";
+            // 
+            // lblProjectName
+            // 
+            lblProjectName.Location = new System.Drawing.Point(19, 66);
+            lblProjectName.Name = "lblProjectName";
+            lblProjectName.Size = new System.Drawing.Size(117, 22);
+            lblProjectName.TabIndex = 0;
+            lblProjectName.Text = "Project Name :";
+            // 
             // ProjectPage
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
@@ -156,11 +260,20 @@
             ((System.ComponentModel.ISupportInitialize)panelMain).EndInit();
             panelMain.ResumeLayout(false);
             panelMain.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)panelControl1).EndInit();
-            panelControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainerControl1.Panel1).EndInit();
+            splitContainerControl1.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainerControl1.Panel2).EndInit();
+            splitContainerControl1.Panel2.ResumeLayout(false);
+            splitContainerControl1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainerControl1).EndInit();
+            splitContainerControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)gridControl1).EndInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)ribbonControl1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtCreatedDate.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtPriority.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtStatus.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtProjectName.Properties).EndInit();
             ResumeLayout(false);
         }
 
@@ -172,9 +285,17 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
         private DevExpress.XtraBars.BarButtonItem barButtonItem1;
         private DevExpress.XtraBars.BarButtonItem barButtonItem2;
-        private DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraGrid.GridControl gridControl1;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private DevExpress.XtraBars.BarButtonItem barButtonItem3;
+        private DevExpress.XtraEditors.SplitContainerControl splitContainerControl1;
+        private DevExpress.XtraEditors.TextEdit txtCreatedDate;
+        private DevExpress.XtraEditors.TextEdit txtPriority;
+        private DevExpress.XtraEditors.TextEdit txtStatus;
+        private DevExpress.XtraEditors.TextEdit txtProjectName;
+        private DevExpress.XtraEditors.LabelControl lblCreatedDate;
+        private DevExpress.XtraEditors.LabelControl lblPriority;
+        private DevExpress.XtraEditors.LabelControl lblStatus;
+        private DevExpress.XtraEditors.LabelControl lblProjectName;
     }
 }
