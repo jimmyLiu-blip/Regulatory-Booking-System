@@ -1,6 +1,8 @@
-﻿using RFScheduling.Domain;
-using System;
-using System.Collections.Generic;
+﻿using System;
+using DevExpress.Data.ODataLinq.Helpers;
+using RFScheduling.Infrastructure;
+using System.Linq;
+using RFScheduling.Domain;
 
 namespace RF_Schedule
 {
@@ -14,7 +16,7 @@ namespace RF_Schedule
 
         private void ProjectPage_Load(object? sender, EventArgs e)
         {
-            LoadFakeProjects();
+            LoadProjects();
         }
 
         private void gridControl1_Click(object sender, EventArgs e)
@@ -22,32 +24,37 @@ namespace RF_Schedule
 
         }
 
-        private void LoadFakeProjects()
+
+
+        private void gridControl1_Click_1(object sender, EventArgs e)
         {
-            var list = new List<Project>
-            {
-                new Project
-                {
-                    ProjectId = 1,
-                    ProjectName = "FCC Project A",
-                    Priority = "高",
-                    Status = "Scheduled",
-                    CreatedDate = DateTime.Now.AddDays(-3)
-                },
-                new Project
-                {
-                    ProjectId = 2,
-                    ProjectName = "CE Project B",
-                    Priority = "中",
-                    Status = "Testing",
-                    CreatedDate = DateTime.Now.AddDays(-1)
-                }
-            };
 
-            gridControl1.MainView = gridView1;   // 🔑 關鍵
-            gridControl1.DataSource = list;
+        }
 
-            gridView1.PopulateColumns();         // 🔑 強制產生欄位
+        private void LoadProjects()
+        {
+            using var database = new AppDbContext();
+
+            // 再正常讀資料給 Grid
+            var projects = database.Projects
+                 .Where(p => !p.IsDeleted)   // 軟刪除先擋掉
+                 .OrderByDescending(p => p.CreatedDate)
+                 .ToList();
+
+            gridControl1.DataSource = projects;
+
+            // 隱藏不該給使用者看的欄位
+            gridView1.Columns["ProjectId"].Visible = false;
+            gridView1.Columns["RegulationId"].Visible = false;
+            gridView1.Columns["TestItemId"].Visible = false;
+            gridView1.Columns["CreatedBy"].Visible = false;
+            gridView1.Columns["ModifiedBy"].Visible = false;
+            gridView1.Columns["IsDeleted"].Visible = false;
+        }
+
+        private void gridControl1_Click_2(object sender, EventArgs e)
+        {
+
         }
     }
 }

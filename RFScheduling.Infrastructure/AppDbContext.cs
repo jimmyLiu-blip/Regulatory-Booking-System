@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RFScheduling.Domain;
+using System.Configuration;
 
 namespace RFScheduling.Infrastructure
 {
@@ -9,6 +10,24 @@ namespace RFScheduling.Infrastructure
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options) 
         {
+        }
+
+        // 給 WinForms / 測試 / 直接 new 用
+        public AppDbContext()
+        {
+        }
+
+        // 給App.config連線
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                var connectionString = ConfigurationManager
+                    .ConnectionStrings["DefaultConnection"]
+                    ?.ConnectionString;
+
+                optionsBuilder.UseSqlServer (connectionString);
+            }
         }
 
         public DbSet<User> Users => Set<User>();

@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DevExpress.XtraScheduler.TimeRuler timeRuler1 = new DevExpress.XtraScheduler.TimeRuler();
-            DevExpress.XtraScheduler.TimeRuler timeRuler2 = new DevExpress.XtraScheduler.TimeRuler();
-            DevExpress.XtraScheduler.TimeRuler timeRuler3 = new DevExpress.XtraScheduler.TimeRuler();
+            DevExpress.XtraScheduler.TimeRuler timeRuler4 = new DevExpress.XtraScheduler.TimeRuler();
+            DevExpress.XtraScheduler.TimeRuler timeRuler5 = new DevExpress.XtraScheduler.TimeRuler();
+            DevExpress.XtraScheduler.TimeRuler timeRuler6 = new DevExpress.XtraScheduler.TimeRuler();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CalendarPage));
             schedulerControl1 = new DevExpress.XtraScheduler.SchedulerControl();
             schedulerDataStorage1 = new DevExpress.XtraScheduler.SchedulerDataStorage(components);
@@ -71,10 +71,10 @@
             schedulerControl1.Start = new System.DateTime(2025, 11, 30, 0, 0, 0, 0);
             schedulerControl1.TabIndex = 0;
             schedulerControl1.Text = "schedulerControl1";
-            schedulerControl1.Views.DayView.TimeRulers.Add(timeRuler1);
+            schedulerControl1.Views.DayView.TimeRulers.Add(timeRuler4);
             schedulerControl1.Views.FullWeekView.Enabled = true;
-            schedulerControl1.Views.FullWeekView.TimeRulers.Add(timeRuler2);
-            schedulerControl1.Views.WorkWeekView.TimeRulers.Add(timeRuler3);
+            schedulerControl1.Views.FullWeekView.TimeRulers.Add(timeRuler5);
+            schedulerControl1.Views.WorkWeekView.TimeRulers.Add(timeRuler6);
             schedulerControl1.Views.YearView.UseOptimizedScrolling = false;
             // 
             // schedulerDataStorage1
@@ -115,6 +115,7 @@
             ribbonControl1.ShowToolbarCustomizeItem = false;
             ribbonControl1.Size = new System.Drawing.Size(1781, 86);
             ribbonControl1.Toolbar.ShowCustomizeItem = false;
+            ribbonControl1.Click += ribbonControl1_Click;
             // 
             // btnViewDay
             // 

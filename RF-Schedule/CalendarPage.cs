@@ -222,5 +222,10 @@ namespace RF_Schedule
             res.CustomFields["Group"] = group; // A or B
             storage.Resources.Add(res);
         }
+
+        private void ribbonControl1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
