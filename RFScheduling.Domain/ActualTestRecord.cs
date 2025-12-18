@@ -10,7 +10,7 @@
 
         public DateTime? ActualEnd { get; set; }
 
-        public int TotalDuration { get; set; }
+        public int? TotalDuration { get; set; }
 
         public int PauseCount { get; set; }
 

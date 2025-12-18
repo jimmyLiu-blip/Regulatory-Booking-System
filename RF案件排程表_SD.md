@@ -2015,3 +2015,553 @@ schedulerControl.Views.MonthView.Enabled = true;
 
 如有任何疑問或需要調整，請隨時提出！
                 
+
+namespace RFScheduling.Domain
+{
+    public class User
+    {
+        public int UserId { get; set; }
+
+        public string UserName { get; set; } = string.Empty;
+
+        public string Email { get; set; } = string.Empty;
+
+        public int RoleId { get; set; }
+
+        public string? Area { get; set; }
+
+        public bool IsActive { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+    }
+}
+namespace RFScheduling.Domain
+{
+    public class Role
+    {
+        public int RoleId { get; set; }
+
+        public string RoleName { get; set; } = string.Empty;
+
+        public string? Description { get; set; } 
+
+        public bool IsActive { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+    }
+}namespace RFScheduling.Domain
+{
+    public class Resource
+    {
+        public int ResourceId { get; set; }
+
+        public string ResourceName { get; set; } = string.Empty;
+        
+        public string Area { get; set; } = string.Empty;
+
+        public string ResourceType {  get; set; } = string.Empty;
+        
+        public bool IsActive { get; set; } 
+
+        public bool IsDeleted { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+    }
+}namespace RFScheduling.Domain
+{
+    public class ResourceEngineer
+    {
+        public int ResourceEngineerId { get; set; }
+
+        public int ResourceId { get; set; }
+
+        public int EngineerId { get; set; }      
+
+        public bool IsActive { get; set; } = true;
+
+        public DateTime CreatedDate { get; set; }
+    }
+}namespace RFScheduling.Domain
+{
+    public class Regulation
+    {
+        public int RegulationId { get; set; }
+
+        public string RegulationCode { get; set; } = string.Empty;
+
+        public bool IsActive { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+    }
+}namespace RFScheduling.Domain
+{
+    public class TestItem
+    {
+        public int TestItemId { get; set; }
+
+        public string TestItemName { get; set; } = string.Empty;
+
+        public string TestItemType {  get; set; } = string.Empty;
+
+        public bool IsActive { get; set; } 
+
+        public bool IsDeleted { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+    }
+}namespace RFScheduling.Domain
+{
+    public class Project
+    {
+        public int ProjectId { get; set; }
+
+        public string ProjectCode { get; set; } = string.Empty;
+
+        public string ProjectName { get; set; } = string.Empty;
+
+        public string Priority { get; set; } = "P2";
+
+        public string Status { get; set; } = "Pending";
+
+        public string? Notes { get; set; }
+
+        public int CreatedBy { get; set; } 
+
+        public DateTime CreatedDate { get; set; }
+
+        public int? ModifiedBy { get; set; }
+
+        public DateTime? ModifiedDate { get; set; }
+
+        public bool IsDeleted { get; set; }
+    }
+}namespace RFScheduling.Domain
+{
+    public class ProjectRegulation
+    {
+        public int ProjectRegulationId { get; set; }
+
+        public int ProjectId { get; set; }              // SD: string ProjectId
+
+        public int? RegulationId { get; set; }          // NULL = Other
+
+        public string? OtherRegulationText { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+    }
+}namespace RFScheduling.Domain
+{
+    public class ProjectTestItem
+    {
+        public int ProjectTestItemId { get; set; }
+
+        public int ProjectId { get; set; }
+
+        public int? TestItemId { get; set; } // Other可null
+
+        public string? OtherTestItemText { get; set; }
+
+        public string? TestItemType { get; set; }    
+
+        public string Status { get; set; } = "Pending";
+
+        public DateTime CreatedDate { get; set; }
+    }
+}namespace RFScheduling.Domain
+{
+    public class Schedule
+    {
+        public int ScheduleId { get; set; }
+
+        public int ProjectId { get; set; }           
+
+        public int ProjectTestItemId { get; set; }     
+
+        public int ResourceId { get; set; }
+
+        public string ScheduleType { get; set; } = "Case";
+
+        public DateTime? EstimatedStart { get; set; }     
+
+        public DateTime? EstimatedEnd { get; set; }
+
+        public DateTime? OriginalEstimatedStart { get; set; }
+
+        public DateTime? OriginalEstimatedEnd { get; set; }
+
+        public string Status { get; set; } = "InQueue";    
+
+        public string? Notes { get; set; }                
+
+        public int CreatedBy { get; set; }                 
+
+        public DateTime CreatedDate { get; set; }
+
+        public int? ModifiedBy { get; set; }      
+        
+        public DateTime? ModifiedDate { get; set; }
+
+        public bool IsDeleted { get; set; }               
+    }
+}namespace RFScheduling.Domain
+{
+    public class ScheduleEngineer
+    {
+        public int ScheduleEngineerId { get; set; }
+
+        public int ScheduleId { get; set; }
+
+        public int EngineerId { get; set; }      
+
+        public DateTime AssignedDate { get; set; }
+
+        public int AssignedBy { get; set; }
+
+        public bool IsActive { get; set; } = true;
+    }
+
+}namespace RFScheduling.Domain
+{
+    public class TestLog
+    {
+        public int TestLogId { get; set; }
+
+        public int ScheduleId { get; set; }
+
+        public string ActionType { get; set; } = string.Empty;
+
+        public DateTime ActionTime { get; set; }
+
+        public int UserId { get; set; }
+
+        public string? Notes { get; set; }
+
+        public bool IsModifiable { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+    }
+}namespace RFScheduling.Domain
+{
+    public class ActualTestRecord
+    {
+        public int ActualTestRecordId { get; set; }
+
+        public int ProjectTestItemId { get; set; }
+
+        public DateTime? ActualStart { get; set; }
+
+        public DateTime? ActualEnd { get; set; }
+
+        public int? TotalDuration { get; set; }
+
+        public int PauseCount { get; set; }
+
+        public DateTime? LastCalculatedDate { get; set; }
+    }
+}namespace RFScheduling.Domain
+{
+    public class EstimateHistory
+    {
+        public int EstimateHistoryId { get; set; }
+
+        public int ScheduleId { get; set; }
+
+        public DateTime? OldStart { get; set; }
+
+        public DateTime? OldEnd { get; set; }
+
+        public DateTime? NewStart { get; set; }
+
+        public DateTime? NewEnd { get; set; }
+
+        public string Reason { get; set; } = string.Empty;
+
+        public int? ModifiedBy { get; set; }
+
+        public DateTime? ModifiedDate { get; set; }
+    }
+}namespace RFScheduling.Domain
+{
+    public class ProgressReport
+    {
+        public int ProgressReportId { get; set; }
+
+        // 對應哪一筆排程
+        public int ScheduleId { get; set; }
+
+        // InProgress / Completed / Fail
+        public string ReportStatus { get; set; } = null!;
+
+        // 回報內容（必填）
+        public string ReportMessage { get; set; } = null!;
+
+        // 回報人（工程師）
+        public int ReportedBy { get; set; }
+
+        // 回報時間
+        public DateTime ReportedDate { get; set; }
+    }
+}namespace RFScheduling.Domain
+{
+    public class ReviewRecord
+    {
+        public int ReviewRecordId { get; set; }
+
+        // 案件
+        public int ProjectId { get; set; }
+
+        // 被審查的測項
+        public int ProjectTestItemId { get; set; }
+
+        // 第幾次送審（1,2,3...）
+        public int ReviewRound { get; set; }
+
+        // Approved / Returned
+        public string ReviewResult { get; set; } = null!;
+
+        // 審查意見
+        public string? ReviewComment { get; set; }
+
+        // 審查人（Reviewer）
+        public int ReviewedBy { get; set; }
+
+        // 審查時間
+        public DateTime ReviewedDate { get; set; }
+
+        // 送審當下時間快照
+        public DateTime SubmittedAt { get; set; }
+    }
+}using Microsoft.EntityFrameworkCore;
+using RFScheduling.Domain;
+using System.Configuration;
+
+namespace RFScheduling.Infrastructure
+{
+    public class AppDbContext : DbContext
+    {
+        // 「外面會把連線設定、Provider（SQL Server）、其他 EF 設定，包成 options 丟進來」，把設定交給 EF Core 的 DbContext 爸爸去初始化
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+            : base(options) 
+        {
+        }
+
+        // 給 WinForms / 測試 / 直接 new 用
+        public AppDbContext()
+        {
+        }
+
+        // 給App.config連線
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                var connectionString = ConfigurationManager
+                    .ConnectionStrings["DefaultConnection"]
+                    ?.ConnectionString;
+
+                optionsBuilder.UseSqlServer (connectionString);
+            }
+        }
+
+        public DbSet<User> Users => Set<User>();
+
+        public DbSet<Role> Roles => Set<Role>();
+
+        public DbSet<Resource> Resources => Set<Resource>();
+
+        public DbSet<ResourceEngineer> ResourceEngineers => Set<ResourceEngineer>();
+
+        public DbSet<Project> Projects => Set<Project>();
+
+        public DbSet<ProjectRegulation> ProjectRegulations => Set<ProjectRegulation>();
+
+        public DbSet<ProjectTestItem> ProjectTestItems => Set<ProjectTestItem>();
+
+        public DbSet<Schedule> Schedules => Set<Schedule>();
+
+        public DbSet<ScheduleEngineer> ScheduleEngineers => Set<ScheduleEngineer>();
+
+        public DbSet<TestLog> TestLogs => Set<TestLog>();
+
+        public DbSet<ActualTestRecord> ActualTestRecords => Set<ActualTestRecord>();
+
+        public DbSet<EstimateHistory> EstimateHistories => Set<EstimateHistory>();
+
+        public DbSet<Regulation> Regulations => Set<Regulation>();
+
+        public DbSet<TestItem>  TestItems => Set<TestItem>();
+
+        public DbSet<ReviewRecord> ReviewRecords => Set<ReviewRecord>();
+
+        public DbSet<ProgressReport> ProgressReports => Set<ProgressReport>();
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // (A) 主檔：Role ↔ User (1:N)
+            modelBuilder.Entity<User>()
+                .HasOne<Role>()
+                .WithMany()
+                .HasForeignKey(u => u.RoleId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // (C) User ↔ Project (CreatedBy / ModifiedBy) (1:N, 多個 FK 指向同一張表)
+            modelBuilder.Entity<Project>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(p => p.CreatedBy)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Project>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(p => p.ModifiedBy)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // (D) ProjectTestItem ↔ ActualTestRecord (1 ↔ 1)
+            modelBuilder.Entity<ActualTestRecord>()
+                .HasOne<ProjectTestItem>()
+                .WithOne()
+                .HasForeignKey<ActualTestRecord>(pt => pt.ProjectTestItemId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ActualTestRecord>()
+                .HasIndex(pt => pt.ProjectTestItemId)
+                .IsUnique();
+
+            // (E) Project ↔ Schedule(1 ↔ N)
+            modelBuilder.Entity<Schedule>()
+                .HasOne<Project>()
+                .WithMany()
+                .HasForeignKey(s => s.ProjectId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // (F) Resource ↔ Schedule
+            modelBuilder.Entity<Schedule>()
+                .HasOne<Resource>()
+                .WithMany()
+                .HasForeignKey(s => s.ResourceId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // (G) User ↔ Schedule (CreatedBy / ModifiedBy / EngineerId) (1:N, 多個 FK 指向同一張表) 
+            modelBuilder.Entity<Schedule>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(s => s.CreatedBy)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Schedule>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(s => s.ModifiedBy)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Schedule>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(s => s.EngineerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // (H) User ↔ EstimateHistory 
+            modelBuilder.Entity<EstimateHistory>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(eh => eh.ModifiedBy)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // (I) User ↔ TestLog
+            modelBuilder.Entity<TestLog>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(t => t.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // (J) Schedule ↔ TestLog
+            modelBuilder.Entity<TestLog>()
+                .HasOne<Schedule>()
+                .WithMany()
+                .HasForeignKey(t => t.ScheduleId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // (K) Schedule ↔ EstimateHistory 
+            modelBuilder.Entity<EstimateHistory>()
+                .HasOne<Schedule>()
+                .WithMany()
+                .HasForeignKey(eh => eh.ScheduleId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // (L) ProjectTestItem ↔ Schedule (1:N)
+            modelBuilder.Entity<Schedule>()
+                .HasOne<ProjectTestItem>()
+                .WithMany()
+                .HasForeignKey(s => s.ProjectTestItemId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // (M) ResourceEngineer
+            modelBuilder.Entity<ResourceEngineer>()
+                .HasOne<Resource>()
+                .WithMany()
+                .HasForeignKey(x => x.ResourceId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ResourceEngineer>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(x => x.EngineerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // (N) ScheduleEngineer
+            modelBuilder.Entity<ScheduleEngineer>()
+                .HasOne<Schedule>()
+                .WithMany()
+                .HasForeignKey(x => x.ScheduleId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<ScheduleEngineer>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(x => x.EngineerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ScheduleEngineer>()
+                .HasIndex(x => new { x.ScheduleId, x.EngineerId })
+                .IsUnique();
+
+            // (O) ProjectTestItem
+            modelBuilder.Entity<ProjectTestItem>()
+                .HasOne<Project>()
+                .WithMany()
+                .HasForeignKey(x => x.ProjectId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<ProjectTestItem>()
+                .HasOne<TestItem>()
+                .WithMany()
+                .HasForeignKey(x => x.TestItemId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            // (P) ProjectRegulation
+            modelBuilder.Entity<ProjectRegulation>()
+                .HasOne<Project>()
+                .WithMany()
+                .HasForeignKey(x => x.ProjectId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<ProjectRegulation>()
+                .HasOne<Regulation>()
+                .WithMany()
+                .HasForeignKey(x => x.RegulationId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+        }
+    }
+}

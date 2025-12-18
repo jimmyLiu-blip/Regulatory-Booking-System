@@ -6,8 +6,6 @@
 
         public string RegulationCode { get; set; } = string.Empty;
 
-        public string RegulationName { get; set; } = string.Empty;
-
         public bool IsActive { get; set; }
 
         public bool IsDeleted { get; set; }

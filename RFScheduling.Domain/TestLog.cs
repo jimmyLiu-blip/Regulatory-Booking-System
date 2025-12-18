@@ -13,5 +13,9 @@
         public int UserId { get; set; }
 
         public string? Notes { get; set; }
+
+        public bool IsModifiable { get; set; }
+
+        public DateTime CreatedDate { get; set; }
     }
 }

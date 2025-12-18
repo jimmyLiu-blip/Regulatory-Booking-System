@@ -10,7 +10,7 @@
 
         public int ResourceId { get; set; }
 
-        public string ScheduleType { get; set; } = "Case"; 
+        public string ScheduleType { get; set; } = "Case";
 
         public DateTime? EstimatedStart { get; set; }     
 
