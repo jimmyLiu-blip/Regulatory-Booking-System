@@ -43,13 +43,6 @@ namespace RF_Schedule
 
             gridControl1.DataSource = projects;
 
-            // 隱藏不該給使用者看的欄位
-            gridView1.Columns["ProjectId"].Visible = false;
-            gridView1.Columns["RegulationId"].Visible = false;
-            gridView1.Columns["TestItemId"].Visible = false;
-            gridView1.Columns["CreatedBy"].Visible = false;
-            gridView1.Columns["ModifiedBy"].Visible = false;
-            gridView1.Columns["IsDeleted"].Visible = false;
         }
 
         private void gridControl1_Click_2(object sender, EventArgs e)
@@ -72,6 +65,30 @@ namespace RF_Schedule
             txtStatus.Text = project.Status;
             txtPriority.Text = project.Priority;
             txtCreatedDate.Text = project.CreatedDate.ToString("yyyy-MM-dd HH:mm");
+        }
+
+        // 點新增案件按鈕，會自動新增
+        private void barButtonItem1_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            using (var db = new AppDbContext())
+            {
+                var project = new Project
+                {
+                    ProjectCode = "RF-" + DateTime.Now.Ticks, // 暫時用流水號
+                    ProjectName = "New Project",
+                    Status = "New",
+                    Priority = "Medium",
+                    Notes = "Auto created",
+                    CreatedBy = 1,              // 先寫死 Admin
+                    CreatedDate = DateTime.Now,
+                    IsDeleted = false
+                };
+
+                db.Projects.Add(project);
+                db.SaveChanges();
+            }
+
+            LoadProjects();
         }
     }
 }
