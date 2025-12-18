@@ -48,7 +48,15 @@ namespace RFScheduling.Infrastructure
 
         public DbSet<EstimateHistory> EstimateHistories => Set<EstimateHistory>();
 
-        public DbSet<ProjectTestRecord> ProjectTestRecords => Set<ProjectTestRecord>();
+        public DbSet<ActualTestRecord> ActualTestRecords => Set<ActualTestRecord>();
+
+        public DbSet<ProjectTestItem> ProjectTestItems => Set<ProjectTestItem>();
+
+        public DbSet<ProjectRegulation> ProjectRegulations => Set<ProjectRegulation>();
+
+        public DbSet<ScheduleEngineer> ScheduleEngineers => Set<ScheduleEngineer>();
+
+        public DbSet<ResourceEngineer> ResourceEngineers => Set<ResourceEngineer>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -59,19 +67,6 @@ namespace RFScheduling.Infrastructure
                 .HasOne<Role>()
                 .WithMany()
                 .HasForeignKey(u => u.RoleId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            // (B) 主檔：Regulation/TestItem ↔ Project (1:N)
-            modelBuilder.Entity<Project>()
-                .HasOne<Regulation>()
-                .WithMany()
-                .HasForeignKey(p => p.RegulationId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Project>()
-                .HasOne<TestItem>()
-                .WithMany()
-                .HasForeignKey(p => p.TestItemId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             // (C) User ↔ Project (CreatedBy / ModifiedBy) (1:N, 多個 FK 指向同一張表)
@@ -87,15 +82,15 @@ namespace RFScheduling.Infrastructure
                 .HasForeignKey(p => p.ModifiedBy)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // (D) Project ↔ ProjectTestRecord (1 ↔ 1)
-            modelBuilder.Entity<ProjectTestRecord>()
-                .HasOne<Project>()
+            // (D) ProjectTestItem ↔ ActualTestRecord (1 ↔ 1)
+            modelBuilder.Entity<ActualTestRecord>()
+                .HasOne<ProjectTestItem>()
                 .WithOne()
-                .HasForeignKey<ProjectTestRecord>(pt => pt.ProjectId)
+                .HasForeignKey<ActualTestRecord>(pt => pt.ProjectTestItemId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<ProjectTestRecord>()
-                .HasIndex(pt => pt.ProjectId)
+            modelBuilder.Entity<ActualTestRecord>()
+                .HasIndex(pt => pt.ProjectTestItemId)
                 .IsUnique();
 
             // (E) Project ↔ Schedule(1 ↔ N)
@@ -158,6 +153,84 @@ namespace RFScheduling.Infrastructure
                 .WithMany()
                 .HasForeignKey(eh => eh.ScheduleId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            // (L) ProjectTestItem ↔ Schedule (1:N)
+            modelBuilder.Entity<Schedule>()
+                .HasOne<ProjectTestItem>()
+                .WithMany()
+                .HasForeignKey(s => s.ProjectTestItemId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // (M) ResourceEngineer
+            modelBuilder.Entity<ResourceEngineer>()
+                .HasOne<Resource>()
+                .WithMany()
+                .HasForeignKey(x => x.ResourceId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ResourceEngineer>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(x => x.EngineerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // (N) ScheduleEngineer
+            modelBuilder.Entity<ScheduleEngineer>()
+                .HasOne<Schedule>()
+                .WithMany()
+                .HasForeignKey(x => x.ScheduleId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<ScheduleEngineer>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(x => x.EngineerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ScheduleEngineer>()
+                .HasIndex(x => new { x.ScheduleId, x.EngineerId })
+                .IsUnique();
+
+            // (O) ProjectTestItem
+            modelBuilder.Entity<ProjectTestItem>()
+                .HasOne<Project>()
+                .WithMany()
+                .HasForeignKey(x => x.ProjectId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<ProjectTestItem>()
+                .HasOne<TestItem>()
+                .WithMany()
+                .HasForeignKey(x => x.TestItemId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ProjectTestItem>()
+                .HasCheckConstraint(
+                    "CK_ProjectTestItem_Other",
+                    "([TestItemId] IS NOT NULL AND [OtherTestItemText] IS NULL) OR " +
+                    "([TestItemId] IS NULL AND [OtherTestItemText] IS NOT NULL)"
+                );
+
+            // (P) ProjectRegulation
+            modelBuilder.Entity<ProjectRegulation>()
+                .HasOne<Project>()
+                .WithMany()
+                .HasForeignKey(x => x.ProjectId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<ProjectRegulation>()
+                .HasOne<Regulation>()
+                .WithMany()
+                .HasForeignKey(x => x.RegulationId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ProjectRegulation>()
+                .HasCheckConstraint(
+                    "CK_ProjectRegulation_Other",
+                    "([RegulationId] IS NOT NULL AND [OtherRegulationText] IS NULL) OR " +
+                    "([RegulationId] IS NULL AND [OtherRegulationText] IS NOT NULL)"
+    );
+
         }
     }
 }

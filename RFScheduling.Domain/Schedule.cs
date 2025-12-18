@@ -4,28 +4,34 @@
     {
         public int ScheduleId { get; set; }
 
-        public int ProjectId { get; set; }
+        public int ProjectId { get; set; }           
+
+        public int ProjectTestItemId { get; set; }     
 
         public int ResourceId { get; set; }
 
-        public int EngineerId { get; set; }
+        public string ScheduleType { get; set; } = "Case"; 
 
-        public DateTime EstimatedStart { get; set; }
+        public DateTime? EstimatedStart { get; set; }     
 
-        public DateTime EstimateEnd { get; set; }
+        public DateTime? EstimatedEnd { get; set; }
 
-        public DateTime OriginalEstimatedStart { get; set; }
+        public DateTime? OriginalEstimatedStart { get; set; }
 
-        public DateTime OriginalEstimatedEnd { get; set; }
+        public DateTime? OriginalEstimatedEnd { get; set; }
 
-        public string Status { get; set; } = string.Empty;
+        public string Status { get; set; } = "InQueue";    
 
-        public int CreatedBy { get; set; } 
+        public string? Notes { get; set; }                
+
+        public int CreatedBy { get; set; }                 
 
         public DateTime CreatedDate { get; set; }
 
-        public int ModifiedBy { get; set; }
+        public int? ModifiedBy { get; set; }      
+        
+        public DateTime? ModifiedDate { get; set; }
 
-        public DateTime ModifiedDate { get; set; }
+        public bool IsDeleted { get; set; }               
     }
 }
