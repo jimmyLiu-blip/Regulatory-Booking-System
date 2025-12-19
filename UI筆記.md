@@ -191,3 +191,33 @@ ShowGroupPanel = False
 關閉Drag a column header那串文字
 
 -----------------------------------------------
+
+4️⃣ GridView 基本設定（Designer）
+
+選 gridViewRegulation，設定以下屬性：
+
+OptionsSelection.MultiSelect = true
+OptionsSelection.MultiSelectMode = CheckBoxRowSelect
+OptionsBehavior.Editable = false
+
+
+👉 效果：
+
+每一列前面有 ☑
+
+使用者可以多選
+
+不會誤改資料
+
+![alt text](image-1.png)
+
+-----------------------------------------------
+
+| 事件             | 用途               | 你現在用不用 |
+| -------------- | ---------------- | ------ |
+| **PageInit**   | ⭐ 載入資料、初始化 Grid  | ✅ 就用這個 |
+| PageValidating | Next 前驗證必填       | 下一步    |
+| PageCommit     | Next 成功後寫入 State | 很快會用   |
+| PageRollback   | Back 回上一頁        | 暫時不用   |
+
+![alt text](image-2.png)

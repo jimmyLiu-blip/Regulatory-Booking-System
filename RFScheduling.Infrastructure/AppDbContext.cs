@@ -62,6 +62,8 @@ namespace RFScheduling.Infrastructure
 
         public DbSet<ProgressReport> ProgressReports => Set<ProgressReport>();
 
+        public DbSet<RegulationTestItem> RegulationTestItems => Set<RegulationTestItem>();
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -207,7 +209,7 @@ namespace RFScheduling.Infrastructure
                 .HasIndex(pt => pt.ProjectTestItemId)
                 .IsUnique();
 
-            // Schedule / User (1) → ProgressReport (N)
+            // (K) Schedule / User (1) → ProgressReport (N)
             modelBuilder.Entity<ProgressReport>()
                 .HasOne<Schedule>()
                 .WithMany()
@@ -220,7 +222,7 @@ namespace RFScheduling.Infrastructure
                 .HasForeignKey(p => p.ReportedBy)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Project / ProjectTestItem / User (Reviewer) (1) → ReviewRecord (N)
+            // (L) Project / ProjectTestItem / User (Reviewer) (1) → ReviewRecord (N)
             modelBuilder.Entity<ReviewRecord>()
                 .HasOne<Project>()
                 .WithMany()
@@ -239,6 +241,18 @@ namespace RFScheduling.Infrastructure
                 .HasForeignKey(r => r.ReviewedBy)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            // (M) Regulation / TestItem (1) → RegulationTestItem (多)
+            modelBuilder.Entity<RegulationTestItem>()
+                .HasOne<Regulation>()
+                .WithMany()
+                .HasForeignKey(r => r.RegulationId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<RegulationTestItem>()
+                .HasOne<TestItem>()
+                .WithMany()
+                .HasForeignKey(r => r.TestItemId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -70,25 +70,9 @@ namespace RF_Schedule
         // 點新增案件按鈕，會自動新增
         private void barButtonItem1_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            using (var db = new AppDbContext())
-            {
-                var project = new Project
-                {
-                    ProjectCode = "RF-" + DateTime.Now.Ticks, // 暫時用流水號
-                    ProjectName = "New Project",
-                    Status = "New",
-                    Priority = "Medium",
-                    Notes = "Auto created",
-                    CreatedBy = 1,              // 先寫死 Admin
-                    CreatedDate = DateTime.Now,
-                    IsDeleted = false
-                };
+            var wizard = new ProjectWizardForm();
 
-                db.Projects.Add(project);
-                db.SaveChanges();
-            }
-
-            LoadProjects();
+            wizard.ShowDialog();
         }
     }
 }
